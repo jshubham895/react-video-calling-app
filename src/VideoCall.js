@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import {
-	channelName,
 	config,
 	useClient,
-	useMicrophoneAndCameraTracks
-} from "./settings";
+	useMicrophoneAndCameraTracks,
+	channelName
+} from "./settings.js";
 import { Grid } from "@material-ui/core";
+import Video from "./Video";
+import Controls from "./Controls";
 
 export default function VideoCall(props) {
 	const { setInCall } = props;
@@ -48,7 +50,7 @@ export default function VideoCall(props) {
 			try {
 				await client.join(config.appId, name, config.token, null);
 			} catch (error) {
-				console.log(error);
+				console.log("error");
 			}
 
 			if (tracks) await client.publish([tracks[0], tracks[1]]);
@@ -68,7 +70,7 @@ export default function VideoCall(props) {
 		<Grid container direction="column" style={{ height: "100%" }}>
 			<Grid item style={{ height: "5%" }}>
 				{ready && tracks && (
-					<Controls tracks={tracks} setStart={start} setInCall={setInCall} />
+					<Controls tracks={tracks} setStart={setStart} setInCall={setInCall} />
 				)}
 			</Grid>
 			<Grid item style={{ height: "95%" }}>
